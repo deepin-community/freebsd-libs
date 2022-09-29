@@ -1,0 +1,337 @@
+Source: freebsd-libs
+Section: libs
+Priority: optional
+Maintainer: GNU/kFreeBSD Maintainers <debian-bsd@lists.debian.org>
+Uploaders:
+ Aurelien Jarno <aurel32@debian.org>,
+ Robert Millan <rmh@debian.org>,
+ Christoph Egger <christoph@debian.org>,
+ Steven Chamberlain <stevenc@debian.org>,
+Build-Depends: debhelper (>= 9), pkg-config,
+ dpkg-dev (>= 1.16.1.1),
+ bmake (>= 20131001-4~),
+ m4,
+ freebsd-mk (>= 10.3~),
+ libbsd-dev (>= 0.3.0),
+ libc0.1-dev (>= 2.13-31) [kfreebsd-any],
+ libgdbm-dev [kfreebsd-any],
+ kfreebsd-kernel-headers (>= 10.3~) [kfreebsd-any],
+# libexpat-dev: aka bsdxml. needed by libgeom
+ libexpat-dev [kfreebsd-any],
+# libncurses5-dev: needed by libalias
+ libncurses5-dev [kfreebsd-any],
+ freebsd-glue (>= 0.2.20~),
+Vcs-Browser: https://anonscm.debian.org/viewvc/glibc-bsd/trunk/freebsd-libs/
+Vcs-Svn: svn://anonscm.debian.org/glibc-bsd/trunk/freebsd-libs/
+Standards-Version: 3.9.8
+
+Package: libsbuf6
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD string buffer library
+ This library provides a way to handle string buffers. It contains
+ numerous functions such as append, copy, cat, print, trim whitespace
+ characters, etc.
+
+Package: libsbuf6-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD string buffer library (udeb)
+ This library provides a way to handle string buffers. It contains
+ numerous functions such as append, copy, cat, print, trim whitespace
+ characters, etc.
+ .
+ This is a minimal package for use in debian-installer.
+
+Package: libsbuf-dev
+Section: libdevel
+Architecture: any
+Depends: libsbuf6 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev
+Replaces: kfreebsd-kernel-headers
+Description: Development files for libsbuf
+ This package contains the header files and static library needed to
+ compile applications that use libsbuf.
+
+Package: libdwarf-freebsd-3
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: library to consume and produce DWARF debug information (FreeBSD version)
+ The libdwarf package provides a shared library which allows reading/consumer
+ and writing/producer of DWARF debugging information from object files, shared
+ libraries, and executables.
+
+Package: libdwarf-freebsd-dev
+Section: libdevel
+Architecture: any
+Depends: libdwarf-freebsd-3 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev,
+ libelf-freebsd-dev,
+Conflicts: libdwarf-dev
+Description: Development files for libdwarf (FreeBSD version)
+ This package contains the header files and static library needed to
+ compile applications that use libdwarf.
+
+Package: libelf-freebsd-1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: library to read and write ELF files
+ The libelf package provides a shared library which allows reading and
+ writing ELF files on a high level.
+
+Package: libelf-freebsd-dev
+Section: libdevel
+Architecture: any
+Depends: libelf-freebsd-1 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev
+Conflicts: libelf-dev, libelfg0-dev
+Description: Development files for libelf (FreeBSD version)
+ This package contains the header files and static library needed to
+ compile applications that use libelf.
+
+Package: libutil-freebsd-9
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD utility library
+ Miscellaneous system facilities.
+
+Package: libutil-freebsd-dev
+Section: libdevel
+Architecture: any
+Depends: libutil-freebsd-9 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev
+Replaces: freebsd-glue (>= 0.0.15~)
+Description: Development files for libutil-freebsd
+ This package contains the header files and static library needed to
+ compile applications that use libutil-freebsd.
+
+Package: libcam6
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD CAM (Common Access Method) library
+ The CAM (Common Access Method) library provides a way for userland
+ SCSI applications to construct a SCSI command.
+
+Package: libcam-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libcam6 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev,
+Description: Development files for libcam
+ This package contains the header files and static library needed to
+ compile applications that use libcam.
+
+Package: libgeom1
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD GEOM library
+ This library provides an interface to GEOM, a modular disk I/O request
+ transformation framework provided by the kernel of FreeBSD.
+
+Package: libgeom-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libgeom1 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev,
+Description: Development files for libgeom
+ This package contains the header files and static library needed to
+ compile applications that use libgeom.
+
+Package: libgeom1-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD GEOM library (udeb)
+ This library provides an interface to GEOM, a modular disk I/O request
+ transformation framework provided by the kernel of FreeBSD.
+ .
+ This is a minimal package for use in debian-installer.
+
+Package: libusbhid4debian
+Architecture: kfreebsd-any
+Depends: libusbhid-common (>= ${source:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD library to access USB HID devices
+ USB Human Interface Devices send and receive data layed out in a device
+ dependent way. The usbhid library contains routines to extract the report
+ descriptor which contains the data layout information and then use this
+ information.
+ .
+ This package contains the header files and static library.
+
+Package: libusbhid-common
+Architecture: all
+Depends: ${misc:Depends}
+Description: Common files for the USB HID devices FreeBSD library
+ USB Human Interface Devices send and receive data layed out in a device
+ dependent way. The usbhid library contains routines to extract the report
+ descriptor which contains the data layout information and then use this
+ information.
+ .
+ This package contains the common files which the library need.
+
+Package: libusbhid-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libusbhid4debian (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev,
+Description: Development files for libusbhid
+ This package contains the header files and static library needed to
+ compile applications that use libusbhid.
+
+Package: libusb3
+Architecture: kfreebsd-any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD userspace USB programming library
+ Library for programming USB applications without the knowledge
+ of FreeBSD kernel internals.
+
+Package: libusb2-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libusb3 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev,
+Provides: libusb-1.0-0-dev (= 1.0.6)
+Conflicts: libusb-dev
+Description: Development files for libusb2
+ This package contains the header files and static library needed to
+ compile applications that use libusb2.
+ .
+ It should be API compatible with both libusb-1.0 and libusb-0.1
+ used on Linux.
+
+Package: libusb3-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Development files for libusb2 (udeb)
+ Library for programming USB applications without the knowledge
+ of FreeBSD kernel internals.
+ .
+ This is a minimal package for use in debian-installer.
+
+Package: libkvm6
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD kvm (kernel memory interface) library
+ The kvm library provides a uniform interface for accessing kernel virtual
+ memory images, including live systems and crash dumps.
+
+Package: libkvm-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libkvm6 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev, libbsd-dev,
+ kfreebsd-kernel-headers (>= 0.81),
+Description: Development files for libkvm
+ This package contains the header files and static library needed to
+ compile applications that use libkvm.
+
+Package: libdevstat7
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD devstat (kernel interface) library
+ The devstat library provides a uniform interface for accessing kernel devstat
+ interface.
+
+Package: libdevstat-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libdevstat7 (= ${binary:Version}), ${misc:Depends}, libkvm-dev, libc0.1-dev | libc-dev,
+Description: Development files for libdevstat
+ This package contains the header files and static library needed to
+ compile applications that use libdevstat.
+
+Package: libmemstat3
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD memstat (kernel interface) library
+ The memstat library provides a uniform interface for accessing kernel memstat
+ interface.
+
+Package: libmemstat-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libmemstat3 (= ${binary:Version}), ${misc:Depends}, libkvm-dev, libc0.1-dev | libc-dev,
+Description: Development files for libmemstat
+ This package contains the header files and static library needed to
+ compile applications that use libmemstat.
+
+Package: libnetgraph4
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD netgraph (kernel interface) library
+ The netgraph library provides a uniform interface for accessing kernel netgraph
+ interface.
+
+Package: libnetgraph-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libnetgraph4 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev,
+Description: Development files for libnetgraph
+ This package contains the header files and static library needed to
+ compile applications that use libnetgraph.
+
+Package: libipx2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD IPX address conversion support library
+ The IPX library provides a set of routune to convert IPX addresses.
+
+Package: libipx-dev
+Section: libdevel
+Architecture: any
+Depends: libipx2 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev
+Description: Development files for libipx
+ This package contains the header files and static library needed to
+ compile applications that use libipx.
+
+Package: libipx2-udeb
+Section: debian-installer
+Package-Type: udeb
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD IPX address conversion support library (udeb)
+ The IPX library provides a set of routune to convert IPX addresses.
+ .
+ This is a minimal package for use in debian-installer.
+
+Package: libkiconv4
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD kernel side iconv library (udeb)
+ The kiconv library provides multi-byte character conversion tables for kernel
+ side iconv service.
+
+Package: libkiconv-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libkiconv4 (= ${binary:Version}), ${misc:Depends}, libc0.1-dev | libc-dev
+Description: Development files for libkiconv
+ This package contains the header files and static library needed to
+ compile applications that use libkiconv.
+
+Package: libjail1
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD jail library
+ The jail library provides support for FreeBSD jails.
+
+Package: libjail-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libjail1 (= ${binary:Version}), ${misc:Depends}
+Description: Development files for libjail
+ This package contains the header files and static library needed to
+ compile applications that use libjail.
+
+Package: libalias7
+Architecture: kfreebsd-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD packet aliasing library
+ The libalias library is a collection of functions for aliasing and
+ dealiasing of IP packets, intended for masquerading and network address
+ translation (NAT).
+
+Package: libalias-dev
+Section: libdevel
+Architecture: kfreebsd-any
+Depends: libalias7 (= ${binary:Version}), ${misc:Depends}
+Description: Development files for libalias
+ This package contains the header files and static library needed to
+ compile applications that use libalias.

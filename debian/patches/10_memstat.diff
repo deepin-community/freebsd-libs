@@ -1,0 +1,60 @@
+--- a/lib/libmemstat/memstat.h
++++ b/lib/libmemstat/memstat.h
+@@ -29,6 +29,8 @@
+ #ifndef _MEMSTAT_H_
+ #define	_MEMSTAT_H_
+ 
++#include <stdint.h>
++
+ /*
+  * Amount of caller data to maintain for each caller data slot.  Applications
+  * must not request more than this number of caller save data, or risk
+--- a/lib/libmemstat/memstat_malloc.c
++++ b/lib/libmemstat/memstat_malloc.c
+@@ -44,10 +44,10 @@
+ 
+ static struct nlist namelist[] = {
+ #define	X_KMEMSTATISTICS	0
+-	{ .n_name = "_kmemstatistics" },
++	{{ .n_name = "_kmemstatistics" }},
+ #define	X_MP_MAXCPUS		1
+-	{ .n_name = "_mp_maxcpus" },
+-	{ .n_name = "" },
++	{{ .n_name = "_mp_maxcpus" }},
++	{{ .n_name = "" }},
+ };
+ 
+ /*
+--- a/lib/libmemstat/memstat_uma.c
++++ b/lib/libmemstat/memstat_uma.c
+@@ -51,12 +51,12 @@
+ 
+ static struct nlist namelist[] = {
+ #define	X_UMA_KEGS	0
+-	{ .n_name = "_uma_kegs" },
++	{{ .n_name = "_uma_kegs" }},
+ #define	X_MP_MAXID	1
+-	{ .n_name = "_mp_maxid" },
++	{{ .n_name = "_mp_maxid" }},
+ #define	X_ALL_CPUS	2
+-	{ .n_name = "_all_cpus" },
+-	{ .n_name = "" },
++	{{ .n_name = "_all_cpus" }},
++	{{ .n_name = "" }},
+ };
+ 
+ /*
+--- a/lib/libmemstat/Makefile
++++ b/lib/libmemstat/Makefile
+@@ -3,8 +3,9 @@
+ WARNS?=		3
+ LIB=		memstat
+ SHLIB_MAJOR=	3
+-DPADD=		${LIBKVM}
+-LDADD=		-lkvm
++LDADD=		-lbsd -L../libkvm -lkvm
++CFLAGS+=	-I${.CURDIR} -I../libkvm
++
+ SRCS+=		memstat.c
+ SRCS+=		memstat_all.c
+ SRCS+=		memstat_malloc.c

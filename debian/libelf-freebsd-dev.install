@@ -1,0 +1,4 @@
+usr/lib/libelf-freebsd.a
+usr/lib/libelf-freebsd*.so
+usr/include/gelf.h
+usr/include/libelf.h

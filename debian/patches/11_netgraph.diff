@@ -1,0 +1,20 @@
+--- a/lib/libnetgraph/netgraph.h
++++ b/lib/libnetgraph/netgraph.h
+@@ -43,6 +43,7 @@
+ #ifndef _NETGRAPH_H_
+ #define _NETGRAPH_H_
+ 
++#include <stdint.h>
+ #include <sys/types.h>
+ #include <netgraph/ng_message.h>
+ 
+--- a/lib/libnetgraph/Makefile
++++ b/lib/libnetgraph/Makefile
+@@ -4,6 +4,7 @@
+ LIB=		netgraph
+ WARNS?=		3
+ MAN=		netgraph.3
++LDADD=		-lbsd
+ 
+ SHLIB_MAJOR=	4
+ 

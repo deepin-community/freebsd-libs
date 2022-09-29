@@ -1,0 +1,31 @@
+--- a/lib/libusb/Makefile
++++ b/lib/libusb/Makefile
+@@ -21,6 +21,7 @@
+ 
+ DPADD=		${LIBPTHREAD}
+ LDADD=		${PTHREAD_LIBS}
++LDADD+=		-lrt -lbsd
+ 
+ MLINKS+=	libusb.3 usb.3
+ 
+--- a/lib/libusb/libusb.h
++++ b/lib/libusb/libusb.h
+@@ -31,6 +31,7 @@
+ #include <stdint.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
++#include <stdint.h>
+ #endif
+ 
+ #define	LIBUSB_CALL
+--- a/lib/libusb/libusb20_desc.h
++++ b/lib/libusb/libusb20_desc.h
+@@ -49,6 +49,8 @@
+ #include <stdint.h>
+ #endif
+ 
++#include <stdint.h>
++
+ #ifdef __cplusplus
+ extern	"C" {
+ #endif

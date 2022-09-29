@@ -1,0 +1,102 @@
+--- a/lib/libgeom/Makefile
++++ b/lib/libgeom/Makefile
+@@ -1,6 +1,7 @@
+ # $FreeBSD$
+ 
+ LIB=	geom
++SHLIB_MAJOR= 1
+ SHLIBDIR?= /lib
+ SRCS+=	geom_getxml.c
+ SRCS+=	geom_stats.c
+@@ -16,6 +17,8 @@
+ DPADD=	${LIBBSDXML} ${LIBSBUF}
+ LDADD=	-lbsdxml -lsbuf
+ 
++LDADD+=	-L../libsbuf/ -lrt -lbsd
++
+ MAN=	libgeom.3
+ 
+ MLINKS+= \
+--- a/lib/libutil/Makefile
++++ b/lib/libutil/Makefile
+@@ -5,16 +5,11 @@
+ 
+ .include <bsd.own.mk>
+ 
+-LIB=	util
++LIB=	util-freebsd
+ SHLIB_MAJOR= 9
+ 
+ SRCS=	_secure_path.c auth.c expand_number.c flopen.c fparseln.c gr_util.c \
+-	hexdump.c humanize_number.c kinfo_getfile.c kinfo_getfile.c \
+-	kinfo_getallproc.c kinfo_getproc.c kinfo_getvmmap.c \
+-	kinfo_getvmobject.c kld.c \
+-	login_auth.c login_cap.c \
+-	login_class.c login_crypt.c login_ok.c login_times.c login_tty.c \
+-	pidfile.c property.c pty.c pw_util.c quotafile.c realhostname.c \
++	hexdump.c humanize_number.c \
+ 	stub.c trimdomain.c uucplock.c
+ INCS=	libutil.h login_cap.h
+ 
+@@ -26,6 +21,17 @@
+ 
+ CFLAGS+= -I${.CURDIR} -I${.CURDIR}/../libc/gen/
+ 
++OS!=	dpkg-architecture -qDEB_HOST_GNU_SYSTEM
++.if ${OS} == "kfreebsd-gnu"
++SRCS+=	login_cap.c login_class.c \
++	kinfo_getfile.c \
++	kinfo_getallproc.c kinfo_getproc.c kinfo_getvmmap.c \
++	kinfo_getvmobject.c \
++	pidfile.c
++.endif
++
++LDADD= -lbsd -lfreebsd-glue
++
+ MAN+=	expand_number.3 flopen.3 fparseln.3 hexdump.3 \
+ 	humanize_number.3 kinfo_getallproc.3 kinfo_getfile.3 \
+ 	kinfo_getproc.3 kinfo_getvmmap.3 kinfo_getvmobject.3 kld.3 \
+--- a/lib/libkvm/Makefile
++++ b/lib/libkvm/Makefile
+@@ -5,6 +5,7 @@
+ SHLIBDIR?= /lib
+ SHLIB_MAJOR=	6
+ CFLAGS+=-DLIBC_SCCS -I${.CURDIR}
++LDADD= -lbsd -lfreebsd-glue
+ 
+ .if exists(${.CURDIR}/kvm_${MACHINE_ARCH}.c)
+ KVM_ARCH=${MACHINE_ARCH}
+--- a/lib/libipx/Makefile
++++ b/lib/libipx/Makefile
+@@ -7,6 +7,10 @@
+ MAN=	ipx.3
+ MLINKS+=ipx.3 ipx_addr.3 ipx.3 ipx_ntoa.3
+ 
++# for <netipx/ipx.h>
++CFLAGS+=	-I../../sys
++INCS+=		../../sys/netipx/ipx.h
++
+ WARNS?=	2
+ 
+ .include <bsd.lib.mk>
+--- a/lib/libelf/Makefile
++++ b/lib/libelf/Makefile
+@@ -61,7 +61,7 @@
+ # problems when a header file in sys depends on a file in another
+ # part of the tree, e.g. a machine dependent header.
+ #
+-SRCS+=	sys/elf32.h sys/elf64.h sys/elf_common.h
++#SRCS+=	sys/elf32.h sys/elf64.h sys/elf_common.h
+ 
+ GENSRCS=	libelf_fsize.c libelf_msize.c libelf_convert.c
+ CLEANFILES=	${GENSRCS}
+--- a/lib/libutil/tests/Makefile
++++ b/lib/libutil/tests/Makefile
+@@ -10,6 +10,6 @@
+ TAP_TESTS_C+=	trimdomain-nodomain_test
+ 
+ DPADD+=		${LIBUTIL}
+-LDADD+=		-lutil
++LDADD+=		-lutil-freebsd -lbsd
+ 
+ .include <bsd.test.mk>

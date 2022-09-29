@@ -1,0 +1,29 @@
+--- a/lib/libipx/Makefile
++++ b/lib/libipx/Makefile
+@@ -1,6 +1,7 @@
+ # $FreeBSD$
+ 
+ LIB=	ipx
++SHLIB_MAJOR=    2
+ SHLIBDIR?= /lib
+ SRCS=	ipx_addr.c ipx_ntoa.c
+ MAN=	ipx.3
+--- a/sys/netipx/ipx.h
++++ b/sys/netipx/ipx.h
+@@ -146,6 +146,7 @@
+ 	u_short		x_port;
+ };
+ 
++#ifdef __FreeBSD_kernel__
+ /*
+  * Socket address
+  */
+@@ -156,6 +157,8 @@
+ 	char		sipx_zero[2];
+ };
+ #define sipx_port sipx_addr.x_port
++#endif
++
+ 
+ /*
+  * Definitions for IPX Internetwork Packet Exchange Protocol

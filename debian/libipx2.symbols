@@ -1,0 +1,3 @@
+libipx.so.2 libipx2 #MINVER#
+ ipx_addr@Base 10.3~svn296373-10
+ ipx_ntoa@Base 10.3~svn296373-10

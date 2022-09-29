@@ -1,0 +1,25 @@
+---
+ lib/libdevstat/Makefile  |    4 ++--
+ lib/libdevstat/devstat.c |    6 +++++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+--- a/lib/libdevstat/Makefile
++++ b/lib/libdevstat/Makefile
+@@ -8,7 +8,7 @@
+ INCS=	devstat.h
+ 
+ DPADD=	${LIBKVM}
+-LDADD=	-lkvm
++LDADD=	-lrt -L../libkvm -lkvm -lbsd
+ 
+ MAN=	devstat.3
+ 
+@@ -31,7 +31,7 @@
+ MLINKS+=devstat.3 compute_stats.3
+ MLINKS+=devstat.3 compute_etime.3
+ 
+-CFLAGS+=-I${.CURDIR}
++CFLAGS+=-I${.CURDIR} -I../libkvm
+ 
+ WARNS?=	3
+ 

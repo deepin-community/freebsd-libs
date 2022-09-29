@@ -1,0 +1,867 @@
+freebsd-libs (10.3~svn296373-10) UNRELEASED; urgency=medium
+
+  * update
+
+ -- GNU/kFreeBSD Maintainers <debian-bsd@lists.debian.org>  Mon, 06 Jun 2022 17:02:44 +0800
+
+freebsd-libs (10.3~svn296373-10) unstable; urgency=medium
+
+  * Pre-define MACHINE_ARCH with the host architecture we are building
+    for, otherwise freebsd-make naively assumes it is the same as the
+    build architecture.  Fixes a cross-build issue reported by Helmut
+    Grohne, thanks!
+
+ -- Steven Chamberlain <stevenc@debian.org>  Fri, 03 Feb 2017 15:35:02 +0000
+
+freebsd-libs (10.3~svn296373-9) unstable; urgency=medium
+
+  [ Aurelien Jarno ]
+  * libusb2-dev: fix libusb-1.0-0-dev versioned provided, set the version to
+    1.0.6.
+
+  [ Steven Chamberlain ]
+  * Update my email address in Uploaders
+  * Use HTTPS for Vcs-Browser URI
+
+ -- Steven Chamberlain <stevenc@debian.org>  Thu, 29 Sep 2016 23:29:00 +0100
+
+freebsd-libs (10.3~svn296373-8) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 07 May 2016 17:39:48 +0100
+
+freebsd-libs (10.3~svn296373-7) experimental; urgency=medium
+
+  * Mark kinfo_* symbols as kfreebsd-specific
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Fri, 06 May 2016 16:51:19 +0100
+
+freebsd-libs (10.3~svn296373-6) experimental; urgency=medium
+
+  * Fix FTBFS on !kfreebsd: installing sbuf.h in libsbuf-dev is not
+    kfreebsd-specific
+  * Now using debhelper compat v9
+  * Now using Standards-Version 3.9.8 (no changes needed).
+  * Add Build-Depends: dpkg-dev (>= 1.16.1.1) and use buildflags.mk
+    to set CFLAGS, respecting DEB_BUILD_OPTIONS flags such as noopt
+  * Enable hardening=+all, which includes PIE, relro and stack protector
+  * Use architecture.mk instead of individual calls to dpkg-architecture
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Fri, 06 May 2016 12:23:46 +0100
+
+freebsd-libs (10.3~svn296373-5) experimental; urgency=medium
+
+  * Build kinfo_getvmobject.c only on kfreebsd host architecture
+  * Also build kinfo_getvmmap.c (Closes: #823385) and the rest of
+    kinfo_* functions, on kfreebsd only
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Fri, 06 May 2016 10:36:46 +0100
+
+freebsd-libs (10.3~svn296373-4) experimental; urgency=medium
+
+  * Use new preferred hostname for upstream SVN with HTTPS
+    (svn.freebsd.org).
+  * Enable kinfo_getvmobject.c in libutil-freebsd 
+  * Multi-archify libusb{2,3-dev}
+  * Declare a versioned Provides: libusb-1.0-0-dev (= 0.1.12)
+    in libusb2-dev
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Mon, 04 Apr 2016 12:35:30 +0100
+
+freebsd-libs (10.3~svn296373-3) experimental; urgency=medium
+
+  * Add missing patch hunk
+      - subr_prf.diff
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Sun, 06 Mar 2016 00:22:15 +0000
+
+freebsd-libs (10.3~svn296373-2) experimental; urgency=medium
+
+  * Avoid including kernel headers on non-kfreebsd arches,
+    sys/ctype.h and machine/stdarg.h in sys/kern/subr_prf.c
+      - subr_prf.diff
+  * In fparseln, replace fgetln(3) with getline(3) (Closes: #811238)
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 05 Mar 2016 20:17:57 +0000
+
+freebsd-libs (10.3~svn296373-1) experimental; urgency=medium
+
+  * New upstream snapshot of 10.3-RC1
+  * Make get-orig-source tarball reproducible
+  * Refresh patches:
+      - 03_libsbuf.diff
+      - makefiles.diff
+      - pty_decls.diff
+  * Check out new upstream source file:
+      - sys/kern/subr_prf.c
+  * Change source tarball compression algorithm to XZ
+  * Actually use the proper build architecture compiler
+    (thanks, Helmut Grohne!)
+  * Pick upstream SVN r267110, for libusb-1.0 compatibility library to
+    report version as 1.0.13 (Closes: #758405)
+      - libusb_reported_version.diff
+  * Add libusb_set_auto_detach_kernel_driver stub (Closes: #816031)
+      - libusb_set_auto_detach_kernel_driver.diff
+  * Add -lutil-freebsd and -lbsd to lib/libutil/tests/Makefile LDFLAGS
+      - makefiles.diff (Closes: #811238)
+  * Build-Depend on kfreebsd-kernel-headers >= 10.3 for cam/scsi/
+  * Build-Depend on freebsd-mk >= 10.3 for *.test.mk (Closes: #749327)
+  * Don't yet build WITH_TESTS=yes
+  * Set Debian-specific /usr/lib/pkgconfig path
+      - pkgconfig_dir.diff
+  * Record new exported symbols
+  * Add myself to Uploaders
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 05 Mar 2016 01:12:41 +0000
+
+freebsd-libs (10.1~svn273304-1) unstable; urgency=medium
+
+  * New upstream snapshot of 10.1-RC3~
+  * Build-Depend on freebsd-mk >= 10.0-5 for MK_TESTS
+  * No longer try to set MK_TESTS in debian/rules;  use WITH_TESTS
+    instead (Closes: #764956)
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Fri, 17 Oct 2014 13:36:01 +0000
+
+freebsd-libs (10.1~svn272464-1) unstable; urgency=low
+
+  [ Petr Salinger ]
+  * New upstream snapshot of 10.1-RC1
+  * Refresh patches with "a/" "b/" paths and without revision tags:
+    - cdefs_macros.diff
+    - 04_libkvm.diff
+    - 05_libipx.diff
+    - kvm_size_t_kludge.diff
+    - dwarf.diff
+    - elf.diff
+    - libusb_pthread_condattr_setclock.diff
+    - libbsd_nlist.diff
+    - assume_default_login_class.diff
+    - rlimit.diff
+    - libdwarf_off64_t.diff
+    - makefiles.diff
+
+  [ Steven Chamberlain ]
+  * Match up libutil.h declarations of openpty, forkpty with those in
+    GNU libc pty.h, in case an application includes both (fixes FTBFS of
+    ruby2.1)
+  * In get-orig-source, svn export with --ignore-keywords so that
+    revision tags do not fuzzy the patches
+
+  [ Christoph Egger ]
+  * Upload to unstable
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Mon, 22 Sep 2014 23:11:27 +0100
+
+freebsd-libs (10.1~svn271690-1) experimental; urgency=medium
+
+  [ Steven Chamberlain]
+  * New upstream snapshot of 10.1-PRERELEASE
+  * Raise Build-Depends on freebsd-glue to >= 0.2.20~, to not be
+    affected by #759249 if the installed libbsd-dev is newer
+  * Update with new versioned symbols:
+    - libcam6.symbols
+    - libkvm6.symbols
+
+ -- Christoph Egger <christoph@debian.org>  Tue, 16 Sep 2014 20:41:50 -0700
+
+freebsd-libs (10.1~pre1-1) experimental; urgency=medium
+
+  * Snapshot from upstream release branch
+  * Add myself to uploaders
+
+ -- Christoph Egger <christoph@debian.org>  Sun, 31 Aug 2014 11:13:09 -0700
+
+freebsd-libs (10.0-7) unstable; urgency=medium
+
+  [ Steven Chamberlain ]
+  * Add empty LIBUSB_CALL macro, to be compatible to the libusb 1.0-API
+    From upstream 10-STABLE.  Thanks, Scott Howard.  (Closes: #749157)
+
+ -- Christoph Egger <christoph@debian.org>  Sun, 31 Aug 2014 11:11:57 -0700
+
+freebsd-libs (10.0-6) unstable; urgency=medium
+
+  * Add <stdint.h> include to kvm.h to fix header buildability.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 22 May 2014 23:37:57 +0200
+
+freebsd-libs (10.0-5) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 22 Mar 2014 20:39:25 +0100
+
+freebsd-libs (10.0-4) experimental; urgency=low
+
+  * libusb_handle_events_completed.diff: Cherry-pick from upstream
+    (add libusb_handle_events_completed and
+    libusb_handle_events_timeout_completed). (Closes: #738986)
+
+ -- Robert Millan <rmh@debian.org>  Sat, 15 Feb 2014 15:43:59 +0100
+
+freebsd-libs (10.0-3) experimental; urgency=low
+
+  * Add missing B-D on m4.
+  * Prepare Makefile.inc to be moved into orig tarball.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 25 Jan 2014 23:51:42 +0100
+
+freebsd-libs (10.0-2) experimental; urgency=low
+
+  * Improve detection of FTBFS problems on foreign platforms by passing
+    __FREEBSD_GLUE_USE_EMBEDDED_HEADERS flag to freebsd-glue.
+  * Switch to bmake to follow upstream.
+  * Fix Dwarf_Off size on i386-linux-gnu.
+  * Bump freebsd-glue B-D to 0.2.18 (for PATH_MAX).
+
+ -- Robert Millan <rmh@debian.org>  Fri, 24 Jan 2014 22:31:35 +0100
+
+freebsd-libs (10.0-1) experimental; urgency=low
+
+  * New upstream release.
+    - Refresh all patches.
+    - Remove missing_static_decl.diff (merged).
+    - Bump SONAME in libusb (2debian -> 3) and libkvm (0 -> 6).
+    - Update symbol list in libcam, libkvm, libusb and libutil.
+    - B-D on freebsd-mk (>= 10.0-2~) and kfreebsd-kernel-headers
+      (>= 10.0~2).
+
+  [ Robert Millan ]
+  * Fetch source code securely (https) in get-orig-source.
+  * Leave -lbsdxml untouched (latest freebsd-glue supports it).
+  * Make libipx available on all architectures.
+  * Correctly setup BSD version of MAKEFLAGS to support parallel builds.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 15 Jan 2014 17:40:16 +0100
+
+freebsd-libs (9.2+ds2-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 01 Dec 2013 12:46:21 +0100
+
+freebsd-libs (9.2+ds2-1) experimental; urgency=low
+
+  * Add libutil.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 30 Nov 2013 13:10:29 +0100
+
+freebsd-libs (9.2+ds1-8) unstable; urgency=low
+
+  * Simplify 04_libkvm.diff even further.
+  * Remove gratuitous header dependencies.
+  * Remove 07_libkiconv.diff (obsolete).
+
+ -- Robert Millan <rmh@debian.org>  Sat, 30 Nov 2013 13:02:31 +0100
+
+freebsd-libs (9.2+ds1-7) unstable; urgency=high
+
+  * Remove unnecessary bits from 04_libkvm.diff and 12_usb.diff.
+  * Re-add libbsd_nlist.diff. It is still required when using kvm.h in
+    an external package.  (Closes: #729536)
+
+ -- Robert Millan <rmh@debian.org>  Thu, 14 Nov 2013 19:55:53 +0100
+
+freebsd-libs (9.2+ds1-6) unstable; urgency=low
+
+  * Bump freebsd-glue Build-Depends on 0.1.14.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 30 Oct 2013 12:34:38 +0100
+
+freebsd-libs (9.2+ds1-5) unstable; urgency=low
+
+  * Fix libelf/libdwarf buildability on GNU/Linux.
+
+ -- Robert Millan <rmh@debian.org>  Mon, 28 Oct 2013 23:11:54 +0100
+
+freebsd-libs (9.2+ds1-4) unstable; urgency=low
+
+  * Exclude libelf and libdwarf from debian/rules as well...
+
+ -- Robert Millan <rmh@debian.org>  Mon, 28 Oct 2013 01:43:54 +0100
+
+freebsd-libs (9.2+ds1-3) unstable; urgency=low
+
+  * Make libelf and libdwarf kfreebsd-any.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 27 Oct 2013 23:52:33 +0100
+
+freebsd-libs (9.2+ds1-2) unstable; urgency=low
+
+  [ Guillem Jover ]
+  * Remove myself from Uploaders.
+
+  [ Robert Millan ]
+  * Fix description for libelf packages.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 27 Oct 2013 22:39:49 +0100
+
+freebsd-libs (9.2+ds1-1) experimental; urgency=low
+
+  * Add libelf and libdwarf, this time changing the SONAME to avoid namespace
+    collisions.
+  * kvm_size_t_kludge.diff: Use <stddef.h> instead of unportably relying
+    on private type names.
+  * Remove libbsd_nlist.diff (obsolete).
+
+ -- Robert Millan <rmh@debian.org>  Wed, 09 Oct 2013 23:21:11 +0200
+
+freebsd-libs (9.2-1) unstable; urgency=low
+
+  * New upstream release.
+    - Refresh all patches.
+    - Remove preserve_libkvm_abi.diff and no_kvm_uread_in_freebsd10.diff
+      (obsoleted by kvm_uread() re-addition in stable/9).
+    - Update symbols in libsbu6, libcam6 and libusb2debian.
+
+  [ Guillem Jover ]
+  * Create $(DESTDIR) on install-indep, otherwise dh_install with
+    --list-missing is unhappy (arguably a bug in debhelper).
+
+ -- Robert Millan <rmh@debian.org>  Wed, 02 Oct 2013 23:28:58 +0200
+
+freebsd-libs (9.1+ds1-3) unstable; urgency=low
+
+  [ Petr Salinger ]
+  * extend cdefs_macros.diff in libusb.h part
+  * libusb really needs libbsd
+
+  [ Guillem Jover ]
+  * Switch to canonical Vcs URLs.
+  * Add build-indep and build-arch debian/rules targets:
+    - Rename BUILD_TARGETS to BUILD_ARCH_TARGETS.
+    - Rename build to build-arch and install to install-arch targets.
+    - Add empty build-indep target.
+    - Add build target depending on build-indep and build-arch.
+    - Split install into install-indep and install-arch targets.
+    - Switch binary-indep and binary-arch to depend on install-indep and
+      install-arch targets respectively.
+  * Now using Standards-Version 3.9.4.
+  * Add missing old symbols to libkvm0 and libsbuf6 symbols files.
+  * Add missing kvm_dpcpu_setcpu(3) man page to libkvm-dev.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 25 Jul 2013 17:04:34 +0200
+
+freebsd-libs (9.1+ds1-2) unstable; urgency=low
+
+  * Bump freebsd-glue B-D (for roundup2).
+
+ -- Robert Millan <rmh@debian.org>  Tue, 16 Jul 2013 15:24:27 +0200
+
+freebsd-libs (9.1+ds1-1) experimental; urgency=low
+
+  * Temporarily remove libelf and libdwarf, until namespace issues are
+    fixed.
+
+ -- Robert Millan <rmh@debian.org>  Tue, 16 Jul 2013 12:17:26 +0200
+
+freebsd-libs (9.1-1) experimental; urgency=low
+
+  * New upstream release.
+    - Sync all patches.
+    - Enable __FreeBSD_version when building freebsd-libs sources.
+    - preserve_libkvm_abi.diff (and no_kvm_uread_in_freebsd10.diff):
+      Backport fix from upstream to preserve 9.0 ABI in libkvm.
+    - missing_static_decl.diff: Fix for _libdwarf_errors being exported in
+      libdwarf.
+    - Acknowledge new symbols in libusbhid4debian, libelf-freebsd-1,
+      libusb2debian and libcam6.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 11 Jul 2013 19:55:11 +0200
+
+freebsd-libs (9.0+ds2-1) experimental; urgency=low
+
+  * Add libelf and libdwarf.
+  * Remove debian/patches/implicit-declaration (obsoleted by
+    freebsd-glue 0.0.5).
+
+ -- Robert Millan <rmh@debian.org>  Wed, 19 Jun 2013 21:49:43 +0200
+
+freebsd-libs (9.0+ds1-4) unstable; urgency=low
+
+  [ Christoph Egger ]
+  * Upload to unstable
+
+  [ Jeff Epler ]
+  * Fix 'warning: implicit declaration of function 'reallocf'
+    (and several other functions) (Closes: 685625)
+  * Make that warning an error so that it does not pass silently
+    in the future 
+
+ -- Christoph Egger <christoph@debian.org>  Sat, 29 Dec 2012 15:49:19 -0800
+
+freebsd-libs (9.0+ds1-3) unstable; urgency=low
+
+  [ Robert Millan ]
+  * 04_libkvm.diff: Remove struct loadavg kludge, B-D on libc0.1-dev (>=
+    2.13-31) instead.
+  * Fix a pair of typos in debian/control.
+  * kvm_size_t_kludge.diff: Temporary kludge to define size_t (requires
+    kfreebsd-kernel-headers >= 0.81).  (Closes: #673431)
+  * Fix FTBFS with latest kfreebsd-kernel-headers.
+
+  [ Guillem Jover ]
+  * Remove Debian revisions from versions in libmemstat3, libsbuf6 and libcam6
+    symbols files.
+
+ -- Robert Millan <rmh@debian.org>  Fri, 25 May 2012 18:37:58 +0200
+
+freebsd-libs (9.0+ds1-2) unstable; urgency=low
+
+  * kvm.h: Use <bsd/nlist.h> rather than <nlist.h>. (Closes: #657772)
+  * Remove redundant definitions of bsfq() and bsfl().
+  * cdefs_macros.diff: Also fix __va_list in <sys/sbuf.h>.
+
+ -- Robert Millan <rmh@debian.org>  Mon, 19 Mar 2012 22:31:50 +0100
+
+freebsd-libs (9.0+ds1-1) unstable; urgency=low
+
+  [ Jérémy Bobbio ]
+  * Fix libnetgraph4 Description. (Closes: #658501)
+
+  [ Robert Millan ]
+  * libsbuf6.symbols: Remove sbuf_overflowed (it wasn't present in 9.0-1).
+  * Remove all CAM kernel headers to ensure system-wide version is used
+    instead.
+  * Require kfreebsd-kernel-headers >= 0.73 (for sys/_stdint.h).
+  * Require freebsd-buildutils >= 9.0-3. (Closes: #659913)
+
+ -- Robert Millan <rmh@debian.org>  Wed, 15 Feb 2012 23:17:28 +0100
+
+freebsd-libs (9.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 01 Feb 2012 21:25:30 +0100
+
+freebsd-libs (8.3~svn229725-3) unstable; urgency=low
+
+  * Remove 15_kkh_kludge.diff, depend on recent k-k-h instead.
+  * cpumask_t.diff: Workaround for removal of cpumask_t in kfreebsd-9
+    headers.
+  * cdefs_macros.diff: Replace all use of BSDish cdefs macros that
+    affect exported headers.  (Closes: #656562)
+
+ -- Robert Millan <rmh@debian.org>  Sat, 21 Jan 2012 01:21:17 +0100
+
+freebsd-libs (8.3~svn229725-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 14 Jan 2012 21:42:00 +0100
+
+freebsd-libs (8.3~svn229725-1) experimental; urgency=low
+
+  * New upstream snapshot.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 08 Jan 2012 18:42:53 +0100
+
+freebsd-libs (8.2+ds2-2) unstable; urgency=low
+
+  * Build-depend on libncurses5-dev (for libalias).
+  * Fix undefined reference to ip_next. Thanks Christoph Egger.
+    (Closes: #654581)
+
+ -- Robert Millan <rmh@debian.org>  Sun, 08 Jan 2012 16:20:31 +0100
+
+freebsd-libs (8.2+ds2-1) unstable; urgency=low
+
+  * Add libalias, using patch from Christoph Egger with some adjustments.
+    (Closes: #653193)
+
+ -- Robert Millan <rmh@debian.org>  Sun, 01 Jan 2012 15:37:48 +0100
+
+freebsd-libs (8.2+ds1-4) unstable; urgency=low
+
+  * Include <stdint.h> in a few more headers that use uintxx_t types.
+    (Closes: #634752)
+  * Move libsbuf.so.0 to /lib (needed by /sbin/zfs and /sbin/zpool).
+    (Closes: #637100)
+  * Move libipx.so.2 to /lib (needed by ifconfig).
+
+ -- Robert Millan <rmh@debian.org>  Mon, 08 Aug 2011 14:34:50 +0000
+
+freebsd-libs (8.2+ds1-3) unstable; urgency=low
+
+  * Remove hunk to include <sys/user.h> in subr_sbuf.c, as this breaks
+    hurd-i386.
+  * Replace 14_sbuf_page_size.diff with cherry-picked
+    00_sbuf_page_size.diff from HEAD, which fixes the same problem
+    differently.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 03 Jul 2011 19:03:40 +0200
+
+freebsd-libs (8.2+ds1-2) unstable; urgency=low
+
+  * Replace use of __aligned() in libusb.h and libusb20_desc.h.
+    (Closes: #631544)
+  * Build-Depend on libbsd-dev everywhere, not just [kfreebsd-any]
+    (fixes FTBFS on non-kFreeBSD).
+  * 14_sbuf_page_size.diff: PAGE_SIZE is not available on all
+    platforms (fixes FTBFS on armel, ia64, powerpc, sparc).
+  * Add myself to Uploaders.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 26 Jun 2011 17:53:53 +0200
+
+freebsd-libs (8.2+ds1-1) unstable; urgency=low
+
+  * Bump libgeom SOVERSION from 0 to 1 and rename package libgeom0 to
+    libgeom1, due to ABI changes in ‘struct gprovider’. (Closes: #630107)
+  * Add new libjail library packages. Based on a patch by Robert Millan.
+    (Closes: #629521)
+  * Update copyright holders and years in debian/copyright.
+  * Integrate svn exports of single files into the main svn export loop.
+  * Do not build profile libraries, which we don't use anyway.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 15 Jun 2011 22:48:21 +0200
+
+freebsd-libs (8.2-2) unstable; urgency=low
+
+  * Switch to use the libbsd-overlay:
+    - Bump libbsd-dev Build-Depends to (>= 0.3.0).
+    - Add pkg-config to Build-Depends.
+    - Remove some now obsolete porting code.
+  * Remove ‘XC-’ prefix from Package-Type field.
+  * Make <sys/sbuf.h> usable:
+    - Change __va_list to va_list.
+    - Include <sys/types.h> and <stdarg.h>.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 08 Jun 2011 03:37:15 +0200
+
+freebsd-libs (8.2-1) unstable; urgency=low
+
+  [ Petr Salinger ]
+  * Based on FreeBSD 8.2.
+
+  [ Robert Millan ]
+  * Build libsbuf-dev on non-kFreeBSD systems.  (Closes: #602766)
+
+  [ Guillem Jover ]
+  * Now using Standards-Version 3.9.2 (no changes needed).
+  * Switch to source format “3.0 (quilt)”.
+    - Remove quilt from Build-Depends.
+    - Remove patch target in debian/rules.
+    - Remove now unneeded README.source.
+    - Refresh all patches.
+  * Add myself to Uploaders.
+  * Refactor source and tar name into SOURCE and TARNAME in debian/rules.
+  * Line-wrap CFLAGS and PMAKE variables in debian/rules.
+  * Intersperse Build-Depends description comments between the actual
+    dependencies.
+  * Set numeric user and group id to 0 for files in get-orig-source.
+  * Add symbols files for all shared libraries.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 07 Jun 2011 07:43:42 +0200
+
+freebsd-libs (8.1-5) unstable; urgency=low
+
+  * libusb2: fix USB devices detection. Closes: bug#594330.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 26 Aug 2010 00:29:47 +0200
+
+freebsd-libs (8.1-4) unstable; urgency=low
+
+  * Add a libsbuf0-udeb package.
+  * Add "(udeb)" to the short description of all udeb packages.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri, 20 Aug 2010 20:01:41 +0200
+
+freebsd-libs (8.1-3) unstable; urgency=low
+
+  * Don't install libusbhid-dev link in libusb-dev.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 31 Jul 2010 23:57:14 +0200
+
+freebsd-libs (8.1-2) unstable; urgency=low
+
+  [ Aurelien Jarno ]
+  * Link all libraries dynamically with each other.
+  * Don't install PIC variant of the static libraries.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri, 30 Jul 2010 17:55:59 +0200
+
+freebsd-libs (8.1-1) unstable; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 8.1
+    drop 13_libusb-update.diff, applied upstream
+    update 09_libusbhid.diff
+
+  [ Aurelien Jarno ]
+  * Bumped Standards-Version to 3.9.1.
+  * Add a libusbhid-common package containing usb_hid_usages. Closes:
+    bug#578678.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Wed, 28 Jul 2010 20:21:25 +0200
+
+freebsd-libs (8.0-5) unstable; urgency=low
+
+  [ Guillem Jover ]
+  * Use kfreebsd-any instead of explicit architecture list.
+
+  [ Aurelien Jarno ]
+  * Add libgeom0 and libipx2 udeb packages.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 28 Jun 2010 23:10:06 +0200
+
+freebsd-libs (8.0-4) unstable; urgency=low
+
+  * libusb2-dev: add a libusb-1.0.so -> libusb.so symlink to make
+    configure scripts happy.
+  * Add patches/13_libusb-update.diff from upstream to update the API.
+  * Add udeb package to libusb2's shlib.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri, 08 Jan 2010 14:17:42 +0100
+
+freebsd-libs (8.0-3) unstable; urgency=low
+
+  [ Petr Salinger ]
+  * bump build-depends on kfreebsd-kernel-headers to (>= 0.45)
+  * add libusb2 and libusb2-dev packages
+
+  [ Aurelien Jarno ]
+  * Make libusb2-dev conflict with libusb-dev.
+  * Add a libusb2-udev package.
+  * Add pkg-config files matching libusb 0.1/libusb 1.0.
+  * Add a libusb-config script matching libusb 0.1.
+  * Make libusb2-dev provides libusb-1.0-0-dev.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Wed, 09 Dec 2009 02:03:24 +0100
+
+freebsd-libs (8.0-2) unstable; urgency=low
+
+  * Bump build-depends on kfreebsd-kernel-headers to (>= 0.43).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 28 Nov 2009 22:42:32 +0100
+
+freebsd-libs (8.0-1) unstable; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 8.0
+  * change packages name to reflect SONAME changes:
+    - libusbhid3   -> libusbhid4
+    - libkiconv3   -> libkiconv4
+    - libdevstat6  -> libdevstat7
+  * add libmemstat3 and libmemstat-dev packages
+  * add libnetgraph4 and libnetgraph-dev packages
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 28 Nov 2009 10:42:15 +0100
+
+freebsd-libs (7.2-4) unstable; urgency=low
+
+  [ Aurelien Jarno ]
+  * Fix description of libgeom-dev.
+  * libkvm0: use our own copy of getbootfile().
+  * Fix dependency between lib and -dev packages.
+  * Add README.source.
+  * Bumped Standards-Version to 3.8.3.
+
+  [ Petr Salinger ]
+  * Build-depends on libc0.1-dev (>= 2.10) instead of libfreebsd-dev.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 27 Oct 2009 20:44:22 +0100
+
+freebsd-libs (7.2-3) unstable; urgency=low
+
+  * Remove unnecessary linkages with libfreebsd.
+  * Bumped Standards-Version to 3.8.2 (no changes).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 04 Aug 2009 08:29:46 +0200
+
+freebsd-libs (7.2-2) unstable; urgency=low
+
+  * Tighten build-depends on kfreebsd-kernel-headers.
+  * Remove n_un union workarounds.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 15 Jun 2009 10:47:08 +0200
+
+freebsd-libs (7.2-1) unstable; urgency=low
+
+  [ Guillem Jover ]
+  * Use $(filter ...) instead of $(findstring ...) to extract space separated
+    options from DEB_BUILD_OPTIONS.
+  * Line wrap Build-Depends and Depends fields longer than 80 chars.
+
+  [ Petr Salinger ]
+  * based on FreeBSD 7.2
+  * add Vcs-* fields into debian/control.
+
+  [ Aurelien Jarno ]
+  * Tighten build-depends on libbsd-dev.
+  * Use SVN server instead of the deprecated CVS server in get-orig-source.
+  * Add -D'__FBSDID(string)=' to CFLAGS, drop debian/patches/00_fbsdid.diff
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 06 Jun 2009 22:15:03 +0200
+
+freebsd-libs (7.1-2) unstable; urgency=low
+
+  * Upload to unstable.
+  * Don't use a tar in tar build system:
+    - Remove fetch
+    - Add a get-orig-source target.
+    - Use quilt to manage patches.
+    - Remove build-depends on kfreebsd-source-7.1.
+    - Update patches accordingly.
+  * Change patch level to -p1.
+  * Fix a few bashisms in debian/rules.
+  * Fix parallel build support in debian/rules.
+  * Install more manpages.
+  * Switch to debhelper 5.
+  * Bumped Standards-Version to 3.8.1 (no changes).
+  * Update debian/copyright.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 07 Apr 2009 16:59:04 +0200
+
+freebsd-libs (7.1-1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 7.1
+
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 05 Jan 2009 10:53:31 +0100
+
+freebsd-libs (7.0-1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 7.0
+  * Change packages name to reflect SONAME changes:
+    - libusbhid2   -> libusbhid3
+    - libkiconv2   -> libkiconv3
+    - libdevstat5  -> libdevstat6
+  * Make it buildable with gcc-4.2
+
+  [ Aurelien Jarno ]
+  * Don't ship useless manpages.
+  * Bumped Standards-Version to 3.8.0 (no changes).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri, 11 Jan 2008 10:53:31 +0100
+
+freebsd-libs (6.3-1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 6.3
+  * new binary packages libdevstat5 and libdevstat-dev
+
+  [ Aurelien Jarno ]
+  * Bumped Standards-Version to 3.7.3 (no changes).
+  * Change ${Source-Version} into ${binary:Version}.
+  * Don't use ${shlibs:Depends} for -dev packages.
+  * Only link with needed libraries.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 10 Jan 2008 18:23:48 +0100
+
+freebsd-libs (6.2-1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 6.2
+
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 15 Jan 2007 13:42:46 +0100
+
+freebsd-libs (6.1-2) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * revert r1694, these libraries are located in /lib/,
+    but dev symlink pointed to /usr/lib/
+    breaks many packages using libkvm-dev or libgeom-dev
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 28 Nov 2006 17:09:28 +0100
+
+freebsd-libs (6.1-1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * based on FreeBSD 6.1
+
+  [ Aurelien Jarno ]
+  * Bumped Standards-Version to 3.7.2 (no changes).
+  * Change packages name to reflect SONAME changes:
+    - libusbhid1 -> libusbhid2
+    - libkiconv1 -> libkiconv2
+
+ -- Aurelien Jarno <aurel32@debian.org>  Wed, 25 Oct 2006 16:49:43 +0200
+
+freebsd-libs (5.4+1-3) UNRELEASED; urgency=low
+
+  * Add libkiconv (patch from Andraz).
+
+ -- Robert Millan <rmh@aybabtu.com>  Thu,  4 May 2006 17:14:34 +0200
+
+freebsd-libs (5.4+1-2) unreleased; urgency=low
+
+  * Link libgeom with librt (to get clock_gettime).
+
+ -- Robert Millan <rmh@aybabtu.com>  Wed, 19 Apr 2006 11:17:18 +0200
+
+freebsd-libs (5.4+1-1) unreleased; urgency=low
+
+  * Add libgeom.
+  * Major patch and variable cleanup/refactor to sanitise SHLIB_MAJOR and
+    SHLIBDIR overrides.
+
+ -- Robert Millan <rmh@aybabtu.com>  Wed, 19 Apr 2006 10:32:23 +0200
+
+freebsd-libs (5.4-8) unreleased; urgency=low
+
+  * First build on amd64.
+  * Lots of cleanup:
+    - Remove functions that are in libfreebsd
+    - Use dynamic regexps to get rid of many patch hunks.
+    - Reenable most commented code (thanks to new functions in libfreebsd).
+
+ -- Robert Millan <rmh@aybabtu.com>  Wed, 29 Mar 2006 20:38:08 +0200
+
+freebsd-libs (5.4-7) unreleased; urgency=low
+
+  * Add kfreebsd-amd64.
+  * Add missing libgdbm-dev to Build-Depends.
+  * Move shared object so /lib (unfucks freebsd-utils).
+
+ -- Robert Millan <rmh@aybabtu.com>  Sat, 25 Mar 2006 21:01:49 +0100
+
+freebsd-libs (5.4-6) unreleased; urgency=low
+
+  * Added libipx.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 20 Dec 2005 23:18:51 +0100
+
+freebsd-libs (5.4-5) unreleased; urgency=low
+
+  * Renamed libsrbuf to libfreebsd and added nlist.
+  * Added libkvm from old package freebsd-kvm-5.2.1. Some parts are still
+    disabled, but less than in the previous version.
+  * Ship a shared library, so that packages will benefit from improvements
+    of the library.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 20 Dec 2005 20:56:06 +0100
+
+freebsd-libs (5.4-4) unreleased; urgency=low
+
+  * Bumped Standard-Versions to 3.6.2 (no changes).
+  * Improved descriptions.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 20 Dec 2005 01:51:03 +0100
+
+freebsd-libs (5.4-3) unreleased; urgency=low
+
+  * libusbhid: include <bsd/bsd.h> and link with -lbsd.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sun, 18 Dec 2005 04:57:17 +0100
+
+freebsd-libs (5.4-2) unreleased; urgency=low
+
+  * Added libusbhid1 and libusbhid-dev.
+  * Updated libcam to version 5.4.
+  * Provide a copyright file.
+  * Get the necessary files directly from kfreebsd-source-5.4.
+  * Make -dev packages depends on libc0.1-dev | libc-dev.
+  * Ship some missing manpages.
+  * Build with -02.
+  * Added myself to uploaders.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sun, 18 Dec 2005 03:59:30 +0100
+
+freebsd-libs (5.4-1) unreleased; urgency=low
+
+  * Initial release.
+
+ -- Robert Millan <rmh@aybabtu.com>  Fri, 12 Aug 2005 12:04:07 +0200

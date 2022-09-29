@@ -1,0 +1,3 @@
+usr/lib/libsbuf.a
+usr/lib/libsbuf*.so
+usr/include/sys/sbuf.h
